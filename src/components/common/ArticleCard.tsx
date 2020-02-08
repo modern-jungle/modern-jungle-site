@@ -1,4 +1,5 @@
 import { Link } from "@reach/router";
+import moment from "moment";
 import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
@@ -9,16 +10,15 @@ export type ArticleCardWrapperProps = {
 };
 
 export const ArticleCardWrapper = styled.div<ArticleCardWrapperProps>`
-  padding: 1em;
+  padding: 1rem;
   height: 400px;
   min-width: 400px;
   display: flex;
   flex: 1;
+  position: relative;
 
   color: ${props => (props.dark ? "#fff" : "#000")};
   text-align: center;
-
-  transition: filter 100ms;
 
   @media (min-width: 832px) {
     width: 50%;
@@ -49,19 +49,7 @@ export const ArticleCardWrapper = styled.div<ArticleCardWrapperProps>`
     display: inline-block;
     padding: 0.5em;
     color: inherit;
-  }
-
-  p {
-    font-size: 1.1em;
-    margin: 0 auto;
-    max-width: 600px;
-    color: inherit;
-  }
-
-  cite {
-    font-size: 1.2em;
-    font-weight: 700;
-    font-style: normal;
+    flex: 1;
   }
 `;
 
@@ -82,8 +70,38 @@ export const ArticleCardContent = styled.article<ArticleCardContentProps>`
 
   filter: grayscale(0.5);
 
+  transition: transform linear 75ms;
+
   &:hover {
     filter: grayscale(0);
+    transform: scale(1.015);
+
+    cite {
+      background: #999;
+    }
+  }
+
+  p {
+    font-size: 1.1em;
+    margin: 0 auto;
+    max-width: 600px;
+    color: inherit;
+    flex: 1;
+  }
+
+  cite {
+    font-family: "Space Mono", monospace;
+    font-size: 0.8rem;
+    font-weight: 100;
+    font-style: normal;
+    flex: 1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(100%);
+    color: #f3f3f3;
+    background: #aaa;
+    padding: 0 4px;
   }
 `;
 
@@ -96,13 +114,16 @@ export function ArticleCard(props: ArticleCardProps) {
 
   return (
     <ArticleCardWrapper dark={dark}>
-      <ArticleCardContent image={image}>
-        <Link to={`/article/${article.slug}`}>
+      <Link to={`/article/${article.slug}`}>
+        <ArticleCardContent image={image}>
           <h2>{article.title}</h2>
           <p>{article.preview}</p>
-          <cite>{article.author.name}</cite>
-        </Link>
-      </ArticleCardContent>
+          <cite>
+            <span>{article.author.name}</span>{" "}
+            <time>{moment(article.published_at).format("DD MMM YY")}</time>
+          </cite>
+        </ArticleCardContent>
+      </Link>
     </ArticleCardWrapper>
   );
 }

@@ -31,6 +31,7 @@ export type Article = {
   light_title: boolean;
   author: Author;
   slug: string;
+  published_at: string;
 };
 
 export type Author = {

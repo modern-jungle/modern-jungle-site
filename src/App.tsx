@@ -52,10 +52,14 @@ function App() {
           </NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contests">Contests</NavLink>
+          <NavLink to={`/category/features`}>Features</NavLink>
         </NavLeft>
         <NavRight>
-          <Link to={`/category/fiction`}>Fiction</Link>
-          <Link to={`/category/opinion`}>Opinion</Link>
+          <NavLink to={`/category/fiction`}>Fiction</NavLink>
+          <NavLink to={`/category/opinion`}>Opinion</NavLink>
+          <NavLink to={`/category/culture`}>Culture</NavLink>
+          <NavLink to={`/category/life`}>Life</NavLink>
+          <NavLink to={`/category/humor`}>Humor</NavLink>
         </NavRight>
       </Header>
       <main className="content">

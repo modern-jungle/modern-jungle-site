@@ -1,17 +1,17 @@
 import React from "react";
 import { useRouteData } from "react-static";
-import { Article, Category } from "types";
+import { Article } from "types";
+import ArticleCard from "../components/common/ArticleCard";
+import ArticleList from "../components/common/ArticleList";
 
 export default () => {
-  const {
-    articles,
-    category
-  }: { articles: Article[]; category: Category } = useRouteData();
+  const { articles }: { articles: Article[] } = useRouteData();
 
   return (
-    <div>
-      <h3>{category.name}</h3>
-      <p>{JSON.stringify(articles.length)}</p>
-    </div>
+    <ArticleList>
+      {articles.map(article => (
+        <ArticleCard key={article.id} article={article} />
+      ))}
+    </ArticleList>
   );
 };

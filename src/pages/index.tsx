@@ -10,7 +10,7 @@ import logo from "../images/modern_jungle.png";
 const Logo = styled.img`
   width: 400px;
   height: 400px;
-  padding: 1em;
+  padding: 1rem;
   display: none;
 
   @media (min-width: 832px) {
@@ -22,13 +22,11 @@ export default () => {
   const { articles }: { articles: Article[] } = useRouteData();
 
   return (
-    <div>
-      <ArticleList>
-        <Logo src={logo} alt="Modern Jungle" />
-        {articles.map(article => (
-          <ArticleCard key={article.id} article={article} />
-        ))}
-      </ArticleList>
-    </div>
+    <ArticleList>
+      <Logo src={logo} alt="Modern Jungle" />
+      {articles.map(article => (
+        <ArticleCard key={article.id} article={article} />
+      ))}
+    </ArticleList>
   );
 };

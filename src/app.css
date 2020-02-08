@@ -55,7 +55,7 @@ h6 {
   margin: 1rem;
 }
 
-@media (min-width: 832px) {
+@media (min-width: 960px) {
   body {
     font-size: 18px;
   }
