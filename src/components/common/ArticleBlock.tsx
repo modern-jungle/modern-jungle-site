@@ -13,9 +13,9 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   text-align: center;
   background-image: url(${props => props.image});
   background-size: cover;
+  background-position: center;
   color: #fff;
   height: 100%;
-  padding: 1rem;
 
   a {
     display: flex;
@@ -24,6 +24,7 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
     width: 100%;
     height: 100%;
     color: inherit;
+    padding: 1rem;
   }
 
   h1 {
