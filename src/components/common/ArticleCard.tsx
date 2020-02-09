@@ -7,7 +7,7 @@ import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
 
 type ArticleCardImageProps = {
-  src: string;
+  image: string;
 };
 
 const ArticleCardCategory = styled.div`
@@ -21,11 +21,22 @@ const ArticleCardCategory = styled.div`
 `;
 
 const ArticleCardImage = styled.div<ArticleCardImageProps>`
-  background-image: url(${props => props.src});
-  background-size: cover;
   width: 100%;
   height: 270px;
   margin: 0 auto;
+  overflow: hidden;
+
+  :before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-image: url(${props => props.image});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    transition: transform 150ms ease-out;
+  }
 `;
 
 export const ArticleCardWrapper = styled.article`
@@ -50,6 +61,10 @@ export const ArticleCardWrapper = styled.article`
     font-size: 1rem;
     font-weight: 300;
   }
+
+  :hover div:before {
+    transform: scale(1.05);
+  }
 `;
 
 export type ArticleCardProps = {
@@ -66,7 +81,7 @@ export function ArticleCard(props: ArticleCardProps) {
   return (
     <ArticleCardWrapper>
       <Link to={slug}>
-        <ArticleCardImage src={getAssetPath(hero.url)} />
+        <ArticleCardImage image={getAssetPath(hero.url)} />
         {showCategory && (
           <ArticleCardCategory>
             {toTitleCase(category.name)}

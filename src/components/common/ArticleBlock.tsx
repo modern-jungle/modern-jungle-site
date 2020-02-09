@@ -28,12 +28,12 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 2.2rem;
     margin: 0;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 300;
     width: 75%;
     margin: 0 auto;
@@ -44,7 +44,7 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   }
 
   address {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
     font-style: normal;
   }

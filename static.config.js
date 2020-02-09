@@ -18,14 +18,17 @@ function getHomeData(page, allArticles, articlesByCategory) {
         articles: articlesByCategory[config.featured_category.id]
       }
     : null;
-  const articles = featuredCategory
+  const weeklyFeatures = allArticles.filter(article => article.weekly_feature);
+  const articles = (featuredCategory
     ? allArticles.filter(
         article => article.category.id !== featuredCategory.category.id
       )
-    : allArticles;
+    : allArticles
+  ).filter(article => !article.weekly_feature);
 
   return {
     articles,
+    weeklyFeatures,
     featuredCategory
   };
 }

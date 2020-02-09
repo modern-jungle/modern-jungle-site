@@ -1,11 +1,11 @@
+import { MainContent } from "../components/common/MainContent";
 import React from "react";
 
 export default () => (
-  <div>
-    <p>Information about our current writing contests can be found below:</p>
-    <p>
-      <strong>Tell us a Story! Modern Jungle Short Fiction Contest 1</strong>
-    </p>
+  <MainContent>
+    <h1>Contests</h1>
+    {/* <p>Information about our current writing contests can be found below:</p> */}
+    <h3>Tell us a Story! Modern Jungle Short Fiction Contest 1</h3>
     <ul>
       <li>
         Submit your short fiction for a chance to be featured on the site and a
@@ -38,5 +38,5 @@ export default () => (
         subject line will not be considered for the prize.
       </li>
     </ul>
-  </div>
+  </MainContent>
 );

@@ -1,19 +1,27 @@
+import { MainContent } from "../components/common/MainContent";
 import React from "react";
 import { useRouteData } from "react-static";
-import { Article } from "types";
+import { toTitleCase } from "../utils/toTitleCase";
+import { Article, Category } from "types";
 import { ArticleCard } from "../components/common/ArticleCard";
 import { ArticleCardList } from "../components/common/ArticleCardList";
 
 export default () => {
-  const { articles }: { articles: Article[] } = useRouteData();
+  const {
+    articles,
+    category
+  }: { articles: Article[]; category: Category } = useRouteData();
 
   return (
-    <ArticleCardList>
-      {articles.map(article => (
-        <li>
-          <ArticleCard key={article.id} article={article} />
-        </li>
-      ))}
-    </ArticleCardList>
+    <MainContent>
+      <h1>{toTitleCase(category.name)}</h1>
+      <ArticleCardList>
+        {articles.map(article => (
+          <li>
+            <ArticleCard key={article.id} article={article} />
+          </li>
+        ))}
+      </ArticleCardList>
+    </MainContent>
   );
 };

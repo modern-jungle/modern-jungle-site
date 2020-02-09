@@ -27,11 +27,10 @@ const MJ = styled.h1`
   color: #000;
 `;
 
-const Header = styled.header`
+const NavContainer = styled.div`
   font-size: 1rem;
   display: flex;
   flex-direction: row;
-  padding: 0 1rem;
 `;
 
 const NavLeft = styled.nav`
@@ -50,26 +49,28 @@ const NavRight = styled.nav`
 function App() {
   return (
     <Root>
-      <MainContent>
-        <Header>
-          <NavLeft>
-            <NavLink to="/">
-              <MJ>Modern Jungle</MJ>
-            </NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/contests">Contests</NavLink>
-            <NavLink to={`/category/features`}>Features</NavLink>
-          </NavLeft>
-          <NavRight>
-            <NavLink to={`/category/fiction`}>Fiction</NavLink>
-            <NavLink to={`/category/opinion`}>Opinion</NavLink>
-            <NavLink to={`/category/culture`}>Culture</NavLink>
-            <NavLink to={`/category/life`}>Life</NavLink>
-            <NavLink to={`/category/humor`}>Humor</NavLink>
-          </NavRight>
-        </Header>
-      </MainContent>
-      <main className="content">
+      <header>
+        <MainContent margin={false}>
+          <NavContainer>
+            <NavLeft>
+              <NavLink to="/">
+                <MJ>Home</MJ>
+              </NavLink>
+              <NavLink to="/about">About</NavLink>
+              <NavLink to="/contests">Contests</NavLink>
+              <NavLink to={`/category/features`}>Features</NavLink>
+            </NavLeft>
+            <NavRight>
+              <NavLink to={`/category/fiction`}>Fiction</NavLink>
+              <NavLink to={`/category/opinion`}>Opinion</NavLink>
+              <NavLink to={`/category/culture`}>Culture</NavLink>
+              <NavLink to={`/category/life`}>Life</NavLink>
+              <NavLink to={`/category/humor`}>Humor</NavLink>
+            </NavRight>
+          </NavContainer>
+        </MainContent>
+      </header>
+      <main>
         <React.Suspense fallback={<em>Loading...</em>}>
           <Router>
             <Routes path="*" />
