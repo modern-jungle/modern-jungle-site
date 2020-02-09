@@ -49,7 +49,7 @@ function getArticlesByCategory(articles, categories) {
 }
 
 const sortByDate = (articleA, articleB) =>
-  new Date(articleA.published_at) - new Date(articleB.published_at);
+  new Date(articleB.published_at) - new Date(articleA.published_at);
 
 export default {
   entry: path.join(__dirname, "src", "index.tsx"),

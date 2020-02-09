@@ -12,7 +12,6 @@ export const ArticleCardList = styled.ul`
 
   > li {
     min-width: 300px;
-    /* padding: 1rem; */
     flex: 1;
     display: flex;
     position: relative;
