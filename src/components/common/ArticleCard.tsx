@@ -4,39 +4,36 @@ import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
+import { toTitleCase } from "../../utils/toTitleCase";
 
-export type ArticleCardWrapperProps = {
-  dark: boolean;
+type ArticleCardImageProps = {
+  src: string;
 };
 
-export const ArticleCardWrapper = styled.div<ArticleCardWrapperProps>`
-  padding: 1rem;
-  height: 400px;
-  min-width: 400px;
+const ArticleCardCategory = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
+  padding: 0 0.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+`;
+
+const ArticleCardImage = styled.div<ArticleCardImageProps>`
+  background-image: url(${props => props.src});
+  background-size: cover;
+  width: 100%;
+  height: 270px;
+  margin: 0 auto;
+`;
+
+export const ArticleCardWrapper = styled.article`
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
   position: relative;
-
-  color: ${props => (props.dark ? "#fff" : "#000")};
-  text-align: center;
-
-  @media (min-width: 832px) {
-    width: 50%;
-    flex: none;
-
-    &:first-of-type,
-    &:nth-of-type(3n + 1) {
-      flex: 1;
-    }
-  }
-
-  &:nth-of-type(3n + 1),
-  &:first-of-type {
-    h2 {
-      line-height: 1em;
-      font-size: 3rem;
-    }
-  }
 
   a {
     display: block;
@@ -45,87 +42,41 @@ export const ArticleCardWrapper = styled.div<ArticleCardWrapperProps>`
     color: inherit;
   }
 
+  h1 {
+    font-size: 2.2rem;
+  }
+
   h2 {
-    display: inline-block;
-    padding: 0.5em;
-    color: inherit;
-    flex: 1;
+    font-size: 1rem;
+    font-weight: 300;
   }
 `;
 
-export type ArticleCardContentProps = { image: string };
-
-export const ArticleCardContent = styled.article<ArticleCardContentProps>`
-  height: 100%;
-  width: 100%;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-
-  background: url(${props => props.image});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  filter: grayscale(0.5);
-
-  transition: transform linear 75ms;
-
-  &:hover {
-    filter: grayscale(0);
-    transform: scale(1.015);
-
-    cite {
-      background: #999;
-    }
-  }
-
-  p {
-    font-size: 1.1em;
-    margin: 0 auto;
-    max-width: 600px;
-    color: inherit;
-    flex: 1;
-  }
-
-  cite {
-    font-family: "Space Mono", monospace;
-    font-size: 0.8rem;
-    font-weight: 100;
-    font-style: normal;
-    flex: 1;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    transform: translateY(100%);
-    color: #f3f3f3;
-    background: #aaa;
-    padding: 0 4px;
-  }
-`;
-
-export type ArticleCardProps = { article: Article };
+export type ArticleCardProps = {
+  article: Article;
+  showCategory?: boolean;
+};
 
 export function ArticleCard(props: ArticleCardProps) {
-  const { article } = props;
-  const dark = article.light_title;
-  const image = getAssetPath(article.hero.url);
+  const {
+    article: { author, title, hero, preview, published_at, slug, category },
+    showCategory = true
+  } = props;
 
   return (
-    <ArticleCardWrapper dark={dark}>
-      <Link to={`/article/${article.slug}`}>
-        <ArticleCardContent image={image}>
-          <h2>{article.title}</h2>
-          <p>{article.preview}</p>
-          <cite>
-            <span>{article.author.name}</span>{" "}
-            <time>{moment(article.published_at).format("DD MMM YY")}</time>
-          </cite>
-        </ArticleCardContent>
+    <ArticleCardWrapper>
+      <Link to={slug}>
+        <ArticleCardImage src={getAssetPath(hero.url)} />
+        {showCategory && (
+          <ArticleCardCategory>
+            {toTitleCase(category.name)}
+          </ArticleCardCategory>
+        )}
+        <h1>{title}</h1>
+        <h2>{preview}</h2>
+        <address>{author.name}</address>
+        <time>{moment(published_at).format("DD MMM YY")}</time>
       </Link>
     </ArticleCardWrapper>
   );
 }
-
-export default ArticleCard;

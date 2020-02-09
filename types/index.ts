@@ -25,6 +25,7 @@ export type Image = {
 export type Article = {
   id: number;
   content: ArticleContent;
+  category: Category;
   title: string;
   preview: string;
   hero: Image;
@@ -32,6 +33,7 @@ export type Article = {
   author: Author;
   slug: string;
   published_at: string;
+  updated_at: string;
 };
 
 export type Author = {

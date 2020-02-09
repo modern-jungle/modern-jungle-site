@@ -1,17 +1,19 @@
 import React from "react";
 import { useRouteData } from "react-static";
 import { Article } from "types";
-import ArticleCard from "../components/common/ArticleCard";
-import ArticleList from "../components/common/ArticleList";
+import { ArticleCard } from "../components/common/ArticleCard";
+import { ArticleCardList } from "../components/common/ArticleCardList";
 
 export default () => {
   const { articles }: { articles: Article[] } = useRouteData();
 
   return (
-    <ArticleList>
+    <ArticleCardList>
       {articles.map(article => (
-        <ArticleCard key={article.id} article={article} />
+        <li>
+          <ArticleCard key={article.id} article={article} />
+        </li>
       ))}
-    </ArticleList>
+    </ArticleCardList>
   );
 };
