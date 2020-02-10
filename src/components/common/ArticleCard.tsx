@@ -5,20 +5,11 @@ import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
+import { CategoryTag } from "./CategoryTag";
 
 type ArticleCardImageProps = {
   image: string;
 };
-
-const ArticleCardCategory = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: #fff;
-  padding: 0 0.2rem;
-  font-size: 1rem;
-  font-weight: 500;
-`;
 
 const ArticleCardImage = styled.div<ArticleCardImageProps>`
   width: 100%;
@@ -73,17 +64,23 @@ export type ArticleCardProps = {
 
 export function ArticleCard(props: ArticleCardProps) {
   const {
-    article: { author, title, hero, preview, published_at, slug, subjects }
+    article: {
+      author,
+      title,
+      hero,
+      preview,
+      published_at,
+      slug,
+      subjects: [primarySubject]
+    }
   } = props;
 
   return (
     <ArticleCardWrapper>
       <Link to={slug}>
         <ArticleCardImage image={getAssetPath(hero.url)} />
-        {subjects.length > 0 && (
-          <ArticleCardCategory>
-            {toTitleCase(subjects[0].name)}
-          </ArticleCardCategory>
+        {primarySubject && (
+          <CategoryTag>{toTitleCase(primarySubject.name)}</CategoryTag>
         )}
         <h1>{title}</h1>
         <h2>{preview}</h2>

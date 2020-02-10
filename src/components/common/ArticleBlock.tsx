@@ -3,12 +3,16 @@ import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
+import { CategoryTag } from "./CategoryTag";
+import { toTitleCase } from "../../utils/toTitleCase";
 
 type ArticleBlockWrapperProps = { image: string };
 
 const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   display: flex;
   flex: 1;
+  height: 100%;
+  position: relative;
   flex-direction: column;
   text-align: center;
   background-image: url(${props => props.image});
@@ -17,7 +21,6 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   background-blend-mode: darken;
   background-color: #888;
   color: #fff;
-  height: 100%;
 
   transition: background-color linear 175ms;
 
@@ -64,7 +67,14 @@ export type ArticleBlockProps = {
 
 export function ArticleBlock(props: ArticleBlockProps) {
   const {
-    article: { author, title, hero, preview, slug }
+    article: {
+      author,
+      title,
+      hero,
+      preview,
+      slug,
+      subjects: [primarySubject]
+    }
   } = props;
 
   return (
@@ -76,6 +86,9 @@ export function ArticleBlock(props: ArticleBlockProps) {
           <span>{author.name}</span>
         </address>
       </Link>
+      {primarySubject && (
+        <CategoryTag>{toTitleCase(primarySubject.name)}</CategoryTag>
+      )}
     </ArticleBlockWrapper>
   );
 }
