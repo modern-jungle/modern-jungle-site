@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
-import { CategoryTag } from "./CategoryTag";
+import { CornerCategoryTag } from "./CategoryTag";
 
 type ArticleCardImageProps = {
   image: string;
@@ -80,7 +80,9 @@ export function ArticleCard(props: ArticleCardProps) {
       <Link to={slug}>
         <ArticleCardImage image={getAssetPath(hero.url)} />
         {primarySubject && (
-          <CategoryTag>{toTitleCase(primarySubject.name)}</CategoryTag>
+          <CornerCategoryTag>
+            {toTitleCase(primarySubject.name)}
+          </CornerCategoryTag>
         )}
         <h1>{title}</h1>
         <h2>{preview}</h2>

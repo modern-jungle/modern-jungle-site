@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
-import { CategoryTag } from "./CategoryTag";
 import { toTitleCase } from "../../utils/toTitleCase";
+import { CornerCategoryTag } from "./CategoryTag";
 
 type ArticleBlockWrapperProps = { image: string };
 
@@ -87,7 +87,9 @@ export function ArticleBlock(props: ArticleBlockProps) {
         </address>
       </Link>
       {primarySubject && (
-        <CategoryTag>{toTitleCase(primarySubject.name)}</CategoryTag>
+        <CornerCategoryTag>
+          {toTitleCase(primarySubject.name)}
+        </CornerCategoryTag>
       )}
     </ArticleBlockWrapper>
   );

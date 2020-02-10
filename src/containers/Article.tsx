@@ -1,13 +1,15 @@
-import ArticleImage from "components/writing/ArticleImage";
-import ArticleQuote from "components/writing/ArticleQuote";
-import ArticleSection from "components/writing/ArticleSection";
+import moment from "moment";
 import React from "react";
 import Helmet from "react-helmet";
 import { useRouteData, useSiteData } from "react-static";
 import styled from "styled-components";
 import { Article } from "../../types";
+import { CategoryTag } from "../components/common/CategoryTag";
+import ArticleImage from "../components/writing/ArticleImage";
+import ArticleQuote from "../components/writing/ArticleQuote";
+import ArticleSection from "../components/writing/ArticleSection";
 import { getAssetPath } from "../utils/getAssetPath";
-import moment from "moment";
+import { toTitleCase } from "../utils/toTitleCase";
 
 const ArticleWrapper = styled.article`
   max-width: 900px;
@@ -98,6 +100,11 @@ export default () => {
       </Helmet>
       <ArticleWrapper>
         <ArticleTop>
+          {article.subjects.map((subject, i) => (
+            <CategoryTag style={i > 0 ? { marginLeft: "0.2rem" } : {}} inverted>
+              {toTitleCase(subject.name)}
+            </CategoryTag>
+          ))}
           <h1>{article.title}</h1>
           <address>{article.author.name}</address>
           <time>{moment(article.published_at).format("DD MMM YY")}</time>

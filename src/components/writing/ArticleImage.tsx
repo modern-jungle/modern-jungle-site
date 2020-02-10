@@ -14,6 +14,7 @@ const ArticleImage = (props: ArticleImageProps) => {
     caption,
     image: { url }
   } = props.image;
+
   return (
     <ArticleImageWrapper>
       <img src={getAssetPath(url)} alt={caption} />
