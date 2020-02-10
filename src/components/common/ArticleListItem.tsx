@@ -12,21 +12,16 @@ const ArticleListItemInfo = styled.div`
 type ArticleListItemImageProps = { image: string };
 
 const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
+  height: 100%;
+  width: 16rem;
   background-image: url(${props => props.image});
   background-size: cover;
-  height: 10rem;
-  width: 12rem;
   background-repeat: no-repeat;
-  order: -1;
-
-  @media (min-width: 960px) {
-    order: 1;
-  }
 `;
 
 const ArticleListItemWrapper = styled.li`
   display: flex;
-  min-height: 10rem;
+  height: 12rem;
 
   a {
     display: flex;
