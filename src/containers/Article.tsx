@@ -14,6 +14,8 @@ import { toTitleCase } from "../utils/toTitleCase";
 const ArticleWrapper = styled.article`
   max-width: 900px;
   margin: 0 auto;
+
+  font-size: 1.3rem;
 `;
 
 const AricleHero = styled.section<{ image: string }>`
