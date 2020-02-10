@@ -14,7 +14,7 @@ type ArticleListItemImageProps = { image: string };
 const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
   background-image: url(${props => props.image});
   background-size: cover;
-  height: 100%;
+  height: 10rem;
   width: 12rem;
   background-repeat: no-repeat;
   order: -1;
@@ -26,7 +26,7 @@ const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
 
 const ArticleListItemWrapper = styled.li`
   display: flex;
-  height: 10rem;
+  min-height: 10rem;
 
   a {
     display: flex;
