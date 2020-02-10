@@ -22,6 +22,24 @@ const AricleHero = styled.section<{ image: string }>`
   background-position: center;
 `;
 
+const ArticleTop = styled.div`
+  text-align: center;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin-bottom: 0;
+    font-size: 5rem;
+  }
+
+  address {
+    font-size: 1.5rem;
+  }
+
+  time {
+    font-size: 1rem;
+  }
+`;
+
 export default () => {
   const { siteRoot }: { siteRoot: string } = useSiteData();
   const { article }: { article: Article } = useRouteData();
@@ -79,7 +97,11 @@ export default () => {
         <meta name="twitter:description" content={article.preview} />
       </Helmet>
       <ArticleWrapper>
-        <h1 style={{ textAlign: "center" }}>{article.title}</h1>
+        <ArticleTop>
+          <h1>{article.title}</h1>
+          <address>{article.author.name}</address>
+          <time>{moment(article.published_at).format("DD MMM YY")}</time>
+        </ArticleTop>
         <AricleHero image={image} />
         {components}
       </ArticleWrapper>

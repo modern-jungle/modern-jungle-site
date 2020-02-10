@@ -22,10 +22,15 @@ export type Image = {
   updated_at: string;
 };
 
+export type Subject = {
+  name: string;
+};
+
 export type Article = {
   id: number;
   content: ArticleContent;
   category: Category;
+  subjects: Subject[];
   title: string;
   preview: string;
   hero: Image;

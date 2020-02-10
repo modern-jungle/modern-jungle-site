@@ -49,7 +49,7 @@ const NavRight = styled.nav`
 function App() {
   return (
     <Root>
-      <header>
+      <header style={{ marginBottom: "1rem" }}>
         <MainContent margin={false}>
           <NavContainer>
             <NavLeft>

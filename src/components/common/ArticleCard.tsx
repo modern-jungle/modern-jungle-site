@@ -69,22 +69,20 @@ export const ArticleCardWrapper = styled.article`
 
 export type ArticleCardProps = {
   article: Article;
-  showCategory?: boolean;
 };
 
 export function ArticleCard(props: ArticleCardProps) {
   const {
-    article: { author, title, hero, preview, published_at, slug, category },
-    showCategory = true
+    article: { author, title, hero, preview, published_at, slug, subjects }
   } = props;
 
   return (
     <ArticleCardWrapper>
       <Link to={slug}>
         <ArticleCardImage image={getAssetPath(hero.url)} />
-        {showCategory && (
+        {subjects.length > 0 && (
           <ArticleCardCategory>
-            {toTitleCase(category.name)}
+            {toTitleCase(subjects[0].name)}
           </ArticleCardCategory>
         )}
         <h1>{title}</h1>

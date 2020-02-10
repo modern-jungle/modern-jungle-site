@@ -14,18 +14,24 @@ type ArticleListItemImageProps = { image: string };
 const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
   background-image: url(${props => props.image});
   background-size: cover;
-  height: 9rem;
-  width: 9rem;
+  height: 100%;
+  width: 12rem;
   background-repeat: no-repeat;
+  order: -1;
+
+  @media (min-width: 960px) {
+    order: 1;
+  }
 `;
 
 const ArticleListItemWrapper = styled.li`
   display: flex;
-  min-height: 9rem;
+  height: 10rem;
 
   a {
     display: flex;
     flex-direction: row;
+    height: 100%;
   }
 
   article {
@@ -34,7 +40,7 @@ const ArticleListItemWrapper = styled.li`
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin: 0;
   }
@@ -43,6 +49,14 @@ const ArticleListItemWrapper = styled.li`
     font-size: 1rem;
     font-weight: 300;
     margin-bottom: 1rem;
+  }
+
+  :first-of-type {
+    padding-top: 0;
+  }
+
+  :last-of-type {
+    padding-bottom: 0;
   }
 `;
 

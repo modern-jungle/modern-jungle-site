@@ -8,7 +8,7 @@ export const ArticleList = styled.ul`
   li {
     padding: 0.5rem 0;
     + li {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid #e1e1e1;
     }
   }
 `;

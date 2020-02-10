@@ -15,6 +15,13 @@ const HomeTop = styled.div`
   img {
     width: calc(18rem + 2rem);
     height: calc(18rem + 2rem);
+    display: none;
+  }
+
+  @media (min-width: 960px) {
+    img {
+      display: flex;
+    }
   }
 `;
 
@@ -52,7 +59,7 @@ const More = styled.div`
     content: "";
     width: 100%;
     height: 1px;
-    background: #ccc;
+    background: #e1e1e1;
     position: absolute;
     display: block;
   }
@@ -129,7 +136,7 @@ export default () => {
         </More>
         <ArticleList>
           {rest.slice(3).map(article => (
-            <ArticleListItem article={article} />
+            <ArticleListItem key={article.id} article={article} />
           ))}
         </ArticleList>
       </MainContent>
