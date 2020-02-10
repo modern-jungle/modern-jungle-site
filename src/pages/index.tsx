@@ -8,14 +8,18 @@ import { Article, Category } from "types";
 import { ArticleCard } from "../components/common/ArticleCard";
 import { ArticleCardList } from "../components/common/ArticleCardList";
 import { toTitleCase } from "../utils/toTitleCase";
+import { ArticleBlock } from "components/common/ArticleBlock";
 
 const HomeTop = styled.div`
   display: flex;
+
+  height: 320px;
 
   img {
     width: calc(18rem + 2rem);
     height: calc(18rem + 2rem);
     display: none;
+    margin-right: 1rem;
   }
 
   @media (min-width: 960px) {
@@ -23,16 +27,6 @@ const HomeTop = styled.div`
       display: flex;
     }
   }
-`;
-
-const Secondary = styled.div`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-left: 1rem;
 `;
 
 const More = styled.div`
@@ -75,19 +69,14 @@ export default () => {
     weeklyFeatures: Article[];
     featuredCategory: { category: Category; articles: Article[] } | null;
   } = useRouteData();
-  const [first, second, ...rest] = articles;
+  const [first, ...rest] = articles;
 
   return (
     <>
       <MainContent>
         <HomeTop>
           <img src={"modern_jungle.png"} />
-          <Secondary>
-            <ArticleList>
-              {first && <ArticleListItem article={first} />}
-              {second && <ArticleListItem article={second} />}
-            </ArticleList>
-          </Secondary>
+          <ArticleBlock article={first} />
         </HomeTop>
       </MainContent>
       <MainContent>
@@ -114,7 +103,7 @@ export default () => {
           <h2
             style={{
               textAlign: "center",
-              fontWeight: 600,
+              fontWeight: 500,
               fontSize: "1.6rem",
               margin: "2rem 0"
             }}

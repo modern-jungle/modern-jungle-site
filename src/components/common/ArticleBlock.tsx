@@ -14,8 +14,16 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   background-image: url(${props => props.image});
   background-size: cover;
   background-position: center;
+  background-blend-mode: darken;
+  background-color: #888;
   color: #fff;
   height: 100%;
+
+  transition: background-color linear 175ms;
+
+  :hover {
+    background-color: #999;
+  }
 
   a {
     display: flex;
@@ -28,12 +36,12 @@ const ArticleBlockWrapper = styled.article<ArticleBlockWrapperProps>`
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     margin: 0;
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 300;
     width: 75%;
     margin: 0 auto;
