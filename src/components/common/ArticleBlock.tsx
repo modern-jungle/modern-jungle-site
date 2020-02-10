@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
-import { CornerCategoryTag } from "./CategoryTag";
+import { CategoryTag } from "./CategoryTag";
 
 type ArticleBlockWrapperProps = { image: string };
 
@@ -65,6 +65,10 @@ export type ArticleBlockProps = {
   article: Article;
 };
 
+const CenterCategoryTag = styled(CategoryTag)`
+  align-self: center;
+`;
+
 export function ArticleBlock(props: ArticleBlockProps) {
   const {
     article: {
@@ -80,17 +84,17 @@ export function ArticleBlock(props: ArticleBlockProps) {
   return (
     <ArticleBlockWrapper image={getAssetPath(hero.url)}>
       <Link to={slug}>
+        {primarySubject && (
+          <CenterCategoryTag>
+            {toTitleCase(primarySubject.name)}
+          </CenterCategoryTag>
+        )}
         <h1>{title}</h1>
         <h2>{preview}</h2>
         <address>
           <span>{author.name}</span>
         </address>
       </Link>
-      {primarySubject && (
-        <CornerCategoryTag>
-          {toTitleCase(primarySubject.name)}
-        </CornerCategoryTag>
-      )}
     </ArticleBlockWrapper>
   );
 }

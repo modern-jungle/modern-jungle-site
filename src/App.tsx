@@ -58,16 +58,16 @@ function App() {
               <NavLink to="/">
                 <MJ>Home</MJ>
               </NavLink>
-              <NavLink to="/about">About</NavLink>
-              <NavLink to="/contests">Contests</NavLink>
               <NavLink to={`/category/features`}>Features</NavLink>
-            </NavLeft>
-            <NavRight>
               <NavLink to={`/category/fiction`}>Fiction</NavLink>
               <NavLink to={`/category/opinion`}>Opinion</NavLink>
               <NavLink to={`/category/culture`}>Culture</NavLink>
               <NavLink to={`/category/life`}>Life</NavLink>
               <NavLink to={`/category/humor`}>Humor</NavLink>
+            </NavLeft>
+            <NavRight>
+              <NavLink to="/about">About</NavLink>
+              <NavLink to="/contests">Contests</NavLink>
             </NavRight>
           </NavContainer>
         </MainContent>
