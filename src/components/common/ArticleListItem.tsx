@@ -21,7 +21,8 @@ const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
 
 const ArticleListItemWrapper = styled.li`
   display: flex;
-  height: 12rem;
+  height: 14rem;
+  overflow: hidden;
 
   a {
     display: flex;
