@@ -121,7 +121,7 @@ export default () => {
       )}
       <MainContent>
         <More>
-          <h3>More</h3>
+          <h3>More Stories</h3>
         </More>
         <ArticleList>
           {rest.slice(3).map(article => (

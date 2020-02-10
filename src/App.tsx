@@ -1,9 +1,11 @@
-import { Link, Router } from "@reach/router";
+import { Link, Match, RouteComponentProps, Router } from "@reach/router";
 import React from "react";
 import { Root, Routes } from "react-static";
 import styled from "styled-components";
 import "./app.css";
-import { MainContent } from "components/common/MainContent";
+import InBrowserOnly from "./components/common/InBrowserOnly";
+import { MainContent } from "./components/common/MainContent";
+import ManageScroll from "./components/common/ManageScroll";
 
 const NavLink = (props: any) => (
   <Link
@@ -72,6 +74,11 @@ function App() {
       </header>
       <main>
         <React.Suspense fallback={<em>Loading...</em>}>
+          <InBrowserOnly>
+            <Match path="">
+              {(props: RouteComponentProps) => <ManageScroll {...props} />}
+            </Match>
+          </InBrowserOnly>
           <Router>
             <Routes path="*" />
           </Router>

@@ -5,7 +5,7 @@ import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
 import moment from "moment";
 
-const ArticleListItemInfo = styled.article`
+const ArticleListItemInfo = styled.div`
   flex: 1;
 `;
 
