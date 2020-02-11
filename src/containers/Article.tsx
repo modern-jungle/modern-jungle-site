@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 import Helmet from "react-helmet";
 import { useRouteData, useSiteData } from "react-static";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Article } from "../../types";
 import { CategoryTag } from "../components/common/CategoryTag";
 import ArticleImage from "../components/writing/ArticleImage";

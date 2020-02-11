@@ -99,15 +99,15 @@ export default {
   },
   plugins: [
     "react-static-plugin-typescript",
-    "react-static-plugin-styled-components",
     [
-      require.resolve("react-static-plugin-source-filesystem"),
+      "react-static-plugin-source-filesystem",
       {
         location: path.resolve("./src/pages")
       }
     ],
-    require.resolve("react-static-plugin-reach-router"),
-    require.resolve("react-static-plugin-sitemap")
+    "react-static-plugin-reach-router",
+    "react-static-plugin-sitemap",
+    "react-static-plugin-emotion"
   ],
   Document: ({
     Html,

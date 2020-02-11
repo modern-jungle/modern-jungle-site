@@ -1,7 +1,7 @@
 import { Link, Match, RouteComponentProps, Router } from "@reach/router";
 import React from "react";
 import { Root, Routes } from "react-static";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import "./app.css";
 import InBrowserOnly from "./components/common/InBrowserOnly";
 import { MainContent } from "./components/common/MainContent";

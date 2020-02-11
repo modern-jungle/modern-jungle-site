@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const ArticleList = styled.ul`
   list-style-type: none;

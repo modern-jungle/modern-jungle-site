@@ -1,7 +1,7 @@
 import { Link } from "@reach/router";
 import moment from "moment";
 import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Article } from "types";
 import { getArticlePath } from "../../utils/getArticlePath";
 import { getAssetPath } from "../../utils/getAssetPath";

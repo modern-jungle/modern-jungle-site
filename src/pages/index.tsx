@@ -1,14 +1,14 @@
-import { ArticleList } from "components/common/ArticleList";
-import { ArticleListItem } from "components/common/ArticleListItem";
-import { MainContent } from "components/common/MainContent";
 import React from "react";
 import { useRouteData } from "react-static";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Article, Category } from "types";
+import { ArticleBlock } from "../components/common/ArticleBlock";
 import { ArticleCard } from "../components/common/ArticleCard";
 import { ArticleCardList } from "../components/common/ArticleCardList";
+import { ArticleList } from "../components/common/ArticleList";
+import { ArticleListItem } from "../components/common/ArticleListItem";
+import { MainContent } from "../components/common/MainContent";
 import { toTitleCase } from "../utils/toTitleCase";
-import { ArticleBlock } from "components/common/ArticleBlock";
 
 const HomeTop = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ export default () => {
     <>
       <MainContent>
         <HomeTop>
-          <img src={"modern_jungle.png"} />
+          <img src="modern_jungle.png" />
           <ArticleBlock article={first} />
         </HomeTop>
       </MainContent>

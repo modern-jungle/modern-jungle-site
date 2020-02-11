@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { ComponentWritingArticleSection } from "../../../types";
 
 type ArticleSectionProps = {

@@ -1,11 +1,11 @@
 import { Link } from "@reach/router";
 import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Article } from "types";
+import { getArticlePath } from "../../utils/getArticlePath";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
 import { CategoryTag } from "./CategoryTag";
-import { getArticlePath } from "../../utils/getArticlePath";
 
 type ArticleBlockWrapperProps = { image: string };
 
@@ -77,7 +77,6 @@ export function ArticleBlock(props: ArticleBlockProps) {
     title,
     hero,
     preview,
-    slug,
     subjects: [primarySubject]
   } = article;
 
