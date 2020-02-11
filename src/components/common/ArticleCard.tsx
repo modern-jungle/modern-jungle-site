@@ -3,6 +3,7 @@ import moment from "moment";
 import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
+import { getArticlePath } from "../../utils/getArticlePath";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
 import { CornerCategoryTag } from "./CategoryTag";
@@ -63,21 +64,19 @@ export type ArticleCardProps = {
 };
 
 export function ArticleCard(props: ArticleCardProps) {
+  const { article } = props;
   const {
-    article: {
-      author,
-      title,
-      hero,
-      preview,
-      published_at,
-      slug,
-      subjects: [primarySubject]
-    }
-  } = props;
+    author,
+    title,
+    hero,
+    preview,
+    published_at,
+    subjects: [primarySubject]
+  } = article;
 
   return (
     <ArticleCardWrapper>
-      <Link to={slug}>
+      <Link to={getArticlePath(article)}>
         <ArticleCardImage image={getAssetPath(hero.url)} />
         {primarySubject && (
           <CornerCategoryTag>

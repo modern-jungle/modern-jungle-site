@@ -103,7 +103,11 @@ export default () => {
       <ArticleWrapper>
         <ArticleTop>
           {article.subjects.map((subject, i) => (
-            <CategoryTag style={i > 0 ? { marginLeft: "0.2rem" } : {}} inverted>
+            <CategoryTag
+              key={subject.name}
+              style={i > 0 ? { marginLeft: "0.2rem" } : {}}
+              inverted
+            >
               {toTitleCase(subject.name)}
             </CategoryTag>
           ))}

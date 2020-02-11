@@ -10,68 +10,106 @@ import ManageScroll from "./components/common/ManageScroll";
 const NavLink = (props: any) => (
   <Link
     {...props}
-    getProps={({ isCurrent }) => {
-      // the object returned here is passed to the
-      // anchor element's props
-      return {
-        style: {
-          color: isCurrent ? "#87c69b" : "#000"
-        }
-      };
-    }}
+    getProps={({ isPartiallyCurrent }) => ({
+      className: isPartiallyCurrent ? "active" : ""
+    })}
   />
 );
 
-const MJ = styled.h1`
-  display: inline;
-  font-size: 1.1rem;
-  margin: 0;
-  color: #000;
+const Header = styled.header`
+  margin-bottom: 3rem;
+`;
+
+const MJ = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 1rem;
+  max-width: initial;
+  position: relative;
+  z-index: 100;
 `;
 
 const NavContainer = styled.div`
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   flex-direction: row;
+
+  nav {
+    width: 100%;
+  }
+
+  nav a {
+    padding: 0 0.75rem;
+    height: 3.5rem;
+    line-height: 4rem;
+  }
+
+  nav a:after {
+    content: "";
+    display: none;
+    height: 2px;
+    background-color: #aaa;
+    position: relative;
+    bottom: 0.6rem;
+    right: 0.5rem;
+    z-index: 99;
+    width: calc(100% + 1rem);
+  }
+
+  nav a.active:after,
+  nav a:hover:after {
+    display: block;
+  }
+
+  nav a.active:after {
+    background-color: #222;
+  }
 `;
 
 const NavLeft = styled.nav`
   display: flex;
   position: relative;
-  left: -1rem;
+
+  a:first-child {
+    padding: 0;
+  }
+
+  a:first-child:after {
+    display: none !important;
+  }
 `;
 
 const NavRight = styled.nav`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  left: 1rem;
+  left: 0.5rem;
 `;
 
 function App() {
   return (
     <Root>
-      <header style={{ marginBottom: "1rem" }}>
-        <MainContent margin={false}>
+      <MainContent margin={false}>
+        <Header>
           <NavContainer>
             <NavLeft>
               <NavLink to="/">
-                <MJ>Home</MJ>
+                <MJ src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
               </NavLink>
-              <NavLink to={`/category/features`}>Features</NavLink>
-              <NavLink to={`/category/fiction`}>Fiction</NavLink>
-              <NavLink to={`/category/opinion`}>Opinion</NavLink>
-              <NavLink to={`/category/culture`}>Culture</NavLink>
-              <NavLink to={`/category/life`}>Life</NavLink>
-              <NavLink to={`/category/humor`}>Humor</NavLink>
+              <NavLink to={`/fiction`}>Fiction</NavLink>
+              <NavLink to={`/features`}>Features</NavLink>
+              <NavLink to={`/opinion`}>Opinion</NavLink>
+              <NavLink to={`/culture`}>Culture</NavLink>
+              <NavLink to={`/life`}>Life</NavLink>
+              <NavLink to={`/humor`}>Humor</NavLink>
             </NavLeft>
             <NavRight>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/contests">Contests</NavLink>
             </NavRight>
           </NavContainer>
-        </MainContent>
-      </header>
+        </Header>
+      </MainContent>
       <main>
         <React.Suspense fallback={<em>Loading...</em>}>
           <InBrowserOnly>

@@ -1,9 +1,10 @@
 import { Link } from "@reach/router";
+import moment from "moment";
 import React from "react";
 import styled from "styled-components";
 import { Article } from "types";
+import { getArticlePath } from "../../utils/getArticlePath";
 import { getAssetPath } from "../../utils/getAssetPath";
-import moment from "moment";
 
 const ArticleListItemInfo = styled.div`
   flex: 1;
@@ -59,14 +60,13 @@ const ArticleListItemWrapper = styled.li`
 export type ArticleListItemProps = { article: Article };
 
 export function ArticleListItem(props: ArticleListItemProps) {
-  const {
-    article: { author, title, hero, preview, published_at, slug }
-  } = props;
+  const { article } = props;
+  const { author, title, hero, preview, published_at } = article;
 
   return (
     <ArticleListItemWrapper>
       <article>
-        <Link to={slug}>
+        <Link to={getArticlePath(article)}>
           <ArticleListItemInfo>
             <time>{moment(published_at).format("DD MMM YY")}</time>
             <h1>{title}</h1>

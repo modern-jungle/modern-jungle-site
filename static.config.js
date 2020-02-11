@@ -10,24 +10,25 @@ const siteRoot =
     ? "https://modernjungle.press"
     : "http://localhost:3000");
 
-function getHomeData(page, allArticles, articlesByCategory) {
+function getHomeData(page, articles, categories) {
   const [config] = page.config;
+  const articlesByCategory = getArticlesByCategory(articles, categories);
   const featuredCategory = config.featured_category
     ? {
         category: config.featured_category,
-        articles: articlesByCategory[config.featured_category.id]
+        articles: articlesByCategory[config.featured_category.id].slice(0, 6)
       }
     : null;
-  const weeklyFeatures = allArticles.filter(article => article.weekly_feature);
-  const articles = (featuredCategory
-    ? allArticles.filter(
-        article => article.category.id !== featuredCategory.category.id
+  const weeklyFeatures = articles.filter(article => article.weekly_feature);
+  const mainArticles = (featuredCategory
+    ? articles.filter(
+        article => !featuredCategory.articles.find(a => a.id === article.id)
       )
-    : allArticles
+    : articles
   ).filter(article => !article.weekly_feature);
 
   return {
-    articles,
+    articles: mainArticles,
     weeklyFeatures,
     featuredCategory
   };
@@ -73,23 +74,23 @@ export default {
         getData: () => ({
           categories,
           articlesByCategory,
-          ...getHomeData(home, sortedArticles, articlesByCategory)
+          ...getHomeData(home, sortedArticles, categories)
         }),
-        children: sortedArticles
-          .map(article => ({
-            path: `/${article.slug}`,
-            template: "src/containers/Article",
+        children: categories
+          .map(category => ({
+            path: `/${category.name}`,
+            template: "src/containers/Category",
             getData: () => ({
-              article
+              category,
+              articles: articlesByCategory[category.id]
             })
           }))
           .concat(
-            categories.map(category => ({
-              path: `/category/${category.name}`,
-              template: "src/containers/Category",
+            sortedArticles.map(article => ({
+              path: `/${article.category.name}/${article.slug}`,
+              template: "src/containers/Article",
               getData: () => ({
-                category,
-                articles: articlesByCategory[category.id]
+                article
               })
             }))
           )
