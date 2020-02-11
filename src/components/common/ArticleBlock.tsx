@@ -5,6 +5,7 @@ import { Article } from "types";
 import { getAssetPath } from "../../utils/getAssetPath";
 import { toTitleCase } from "../../utils/toTitleCase";
 import { CategoryTag } from "./CategoryTag";
+import { getArticlePath } from "../../utils/getArticlePath";
 
 type ArticleBlockWrapperProps = { image: string };
 
@@ -70,20 +71,19 @@ const CenterCategoryTag = styled(CategoryTag)`
 `;
 
 export function ArticleBlock(props: ArticleBlockProps) {
+  const { article } = props;
   const {
-    article: {
-      author,
-      title,
-      hero,
-      preview,
-      slug,
-      subjects: [primarySubject]
-    }
-  } = props;
+    author,
+    title,
+    hero,
+    preview,
+    slug,
+    subjects: [primarySubject]
+  } = article;
 
   return (
     <ArticleBlockWrapper image={getAssetPath(hero.url)}>
-      <Link to={slug}>
+      <Link to={getArticlePath(article)}>
         {primarySubject && (
           <CenterCategoryTag>
             {toTitleCase(primarySubject.name)}

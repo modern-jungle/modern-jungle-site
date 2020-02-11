@@ -10,6 +10,8 @@ import ArticleQuote from "../components/writing/ArticleQuote";
 import ArticleSection from "../components/writing/ArticleSection";
 import { getAssetPath } from "../utils/getAssetPath";
 import { toTitleCase } from "../utils/toTitleCase";
+import { getArticlePath } from "../utils/getArticlePath";
+import { buildUrl } from "../utils/buildUrl";
 
 const ArticleWrapper = styled.article`
   max-width: 900px;
@@ -70,7 +72,7 @@ export default () => {
     return null;
   });
 
-  const url = `${siteRoot}/${article.slug}`;
+  const url = buildUrl(siteRoot, getArticlePath(article));
   const publishedTime = moment(article.published_at).format();
   const modifiedTime = moment(article.updated_at).format();
 
