@@ -19,8 +19,6 @@ const AuthorCardWrapper = styled.div<AuthorCardWrapperProps>`
 
   a {
     display: flex;
-    height: 100%;
-    flex: 1;
   }
 
   img {

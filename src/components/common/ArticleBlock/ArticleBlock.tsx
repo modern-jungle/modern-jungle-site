@@ -6,9 +6,16 @@ import { getArticlePath } from "../../../utils/getArticlePath"
 import { getAssetPath } from "../../../utils/getAssetPath"
 import { toTitleCase } from "../../../utils/toTitleCase"
 import { CategoryTag } from "../CategoryTag"
+import { ImageContainer } from "../ImageContainer"
+
+const ArticleBlockImage = styled(ImageContainer)`
+  z-index: -1;
+  position: absolute;
+`
 
 const ArticleBlockWrapper = styled.article`
   height: 100%;
+  min-width: 20rem;
   position: relative;
   flex-direction: column;
   text-align: center;
@@ -28,19 +35,8 @@ const ArticleBlockWrapper = styled.article`
     width: 100%;
     height: 100%;
     color: inherit;
-    padding: 1rem;
     overflow: hidden;
     position: relative;
-
-    img {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      transform: translateY(-50%);
-      z-index: -1;
-      filter: darken(0.5);
-    }
   }
 
   h1 {
@@ -84,7 +80,9 @@ export function ArticleBlock(props: ArticleBlockProps) {
   return (
     <ArticleBlockWrapper>
       <Link to={getArticlePath(article)}>
-        <img src={getAssetPath(hero.url)} />
+        <ArticleBlockImage>
+          <img src={getAssetPath(hero.url)} />
+        </ArticleBlockImage>
         {primarySubject && (
           <CenterCategoryTag>
             {toTitleCase(primarySubject.name)}

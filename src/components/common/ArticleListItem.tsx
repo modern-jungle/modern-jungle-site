@@ -7,6 +7,7 @@ import { getArticlePath } from "../../utils/getArticlePath"
 import { getAssetPath } from "../../utils/getAssetPath"
 import { ArticleDate } from "./ArticleDate"
 import { AuthorLink } from "./AuthorLink"
+import { ImageContainer } from "./ImageContainer"
 
 const ArticleListItemInfo = styled.div`
   flex: 1;
@@ -17,18 +18,9 @@ const ArticleListItemInfo = styled.div`
   }
 `
 
-const ArticleListItemThumbnail = styled(Link)`
-  height: 100%;
+const ArticleListItemThumbnail = styled(ImageContainer)`
   width: 10rem;
   justify-content: flex-end;
-  overflow: hidden;
-
-  img {
-    height: 100%;
-    max-width: initial;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
 `
 
 const ArticleListItemWrapper = styled.li`
@@ -82,9 +74,11 @@ export function ArticleListItem(props: ArticleListItemProps) {
           </Link>
           <AuthorLink author={author} />
         </ArticleListItemInfo>
-        <ArticleListItemThumbnail to={getArticlePath(article)}>
-          <img src={getAssetPath(hero.url)} />
-        </ArticleListItemThumbnail>
+        <Link to={getArticlePath(article)}>
+          <ArticleListItemThumbnail>
+            <img src={getAssetPath(hero.url)} />
+          </ArticleListItemThumbnail>
+        </Link>
       </article>
     </ArticleListItemWrapper>
   )

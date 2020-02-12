@@ -3,11 +3,13 @@ import moment from "moment"
 import React from "react"
 import Helmet from "react-helmet"
 import { useRouteData, useSiteData } from "react-static"
-import { ArticleDate } from "../components/common/ArticleDate"
 import { Article } from "../../types"
+import { ArticleDate } from "../components/common/ArticleDate"
 import { AuthorCard } from "../components/common/AuthorCard"
 import { AuthorLink } from "../components/common/AuthorLink"
 import { CategoryTag } from "../components/common/CategoryTag"
+import { ImageContainer } from "../components/common/ImageContainer"
+import { MainContent } from "../components/common/MainContent"
 import ArticleImage from "../components/writing/ArticleImage"
 import ArticleQuote from "../components/writing/ArticleQuote"
 import ArticleSection from "../components/writing/ArticleSection"
@@ -22,13 +24,8 @@ const ArticleWrapper = styled.article`
   font-size: 1.2rem;
 `
 
-const AricleHero = styled.section`
-  width: 100%;
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
+const AricleHero = styled(ImageContainer)`
+  height: 30rem;
 `
 
 const ArticleHeader = styled.header`
@@ -67,21 +64,30 @@ export default () => {
   const components = article.content.map(component => {
     if ("text" in component) {
       return (
-        <ArticleSection
-          section={component}
-          key={`${component.__component}${component.id}`}
-        />
+        <MainContent>
+          <ArticleSection
+            section={component}
+            key={`${component.__component}${component.id}`}
+          />
+        </MainContent>
       )
     } else if ("image" in component) {
       return (
-        <ArticleImage
-          image={component}
-          key={`${component.__component}${component.id}`}
-        />
+        <MainContent>
+          <ArticleImage
+            image={component}
+            key={`${component.__component}${component.id}`}
+          />
+        </MainContent>
       )
     } else if ("quote" in component) {
-      return <ArticleQuote quote={component} />
+      return (
+        <MainContent>
+          <ArticleQuote quote={component} />
+        </MainContent>
+      )
     }
+    // TODO: Full-bleed
 
     return null
   })
@@ -117,28 +123,32 @@ export default () => {
         <meta name="twitter:description" content={article.preview} />
       </Helmet>
       <ArticleWrapper>
-        <ArticleHeader>
-          {article.subjects.map((subject, i) => (
-            <ArticleCategoryTag
-              key={subject.name}
-              style={i > 0 ? { marginLeft: "0.2rem" } : {}}
-              inverted
-            >
-              {toTitleCase(subject.name)}
-            </ArticleCategoryTag>
-          ))}
-          <h1>{article.title}</h1>
-          <AuthorLink author={article.author} />
-          <ArticleDate>
-            {moment(article.published_at).format("DD MMM YY")}
-          </ArticleDate>
-        </ArticleHeader>
+        <MainContent>
+          <ArticleHeader>
+            {article.subjects.map((subject, i) => (
+              <ArticleCategoryTag
+                key={subject.name}
+                style={i > 0 ? { marginLeft: "0.2rem" } : {}}
+                inverted
+              >
+                {toTitleCase(subject.name)}
+              </ArticleCategoryTag>
+            ))}
+            <h1>{article.title}</h1>
+            <AuthorLink author={article.author} />
+            <ArticleDate>
+              {moment(article.published_at).format("DD MMM YY")}
+            </ArticleDate>
+          </ArticleHeader>
+        </MainContent>
         <AricleHero>
           <img src={getAssetPath(article.hero.url)} />
         </AricleHero>
         {components}
         <ArticleFooter>
-          <AuthorCard author={article.author} />
+          <MainContent>
+            <AuthorCard author={article.author} />
+          </MainContent>
         </ArticleFooter>
       </ArticleWrapper>
     </>

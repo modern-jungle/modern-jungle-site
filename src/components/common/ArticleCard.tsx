@@ -9,22 +9,10 @@ import { toTitleCase } from "../../utils/toTitleCase"
 import { ArticleDate } from "./ArticleDate"
 import { AuthorLink } from "./AuthorLink"
 import { CornerCategoryTag } from "./CategoryTag"
+import { ImageContainer } from "./ImageContainer"
 
-const ArticleCardImage = styled.div`
-  width: 100%;
-  height: 320px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-
-  img {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    max-width: initial;
-    max-height: 100%;
-    transform: translateX(-50%);
-  }
+const ArticleCardThumbnail = styled(ImageContainer)`
+  height: 20rem;
 `
 
 export const ArticleCardWrapper = styled.article`
@@ -73,9 +61,9 @@ export function ArticleCard(props: ArticleCardProps) {
   return (
     <ArticleCardWrapper>
       <ArticleCardTop to={getArticlePath(article)}>
-        <ArticleCardImage>
+        <ArticleCardThumbnail>
           <img src={getAssetPath(hero.url)} />
-        </ArticleCardImage>
+        </ArticleCardThumbnail>
         {primarySubject && (
           <CornerCategoryTag>
             {toTitleCase(primarySubject.name)}

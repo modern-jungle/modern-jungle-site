@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
 
 export const ArticleCardList = styled.ul`
   margin: 0;
@@ -11,11 +11,11 @@ export const ArticleCardList = styled.ul`
   list-style-type: none;
 
   > li {
-    min-width: 300px;
-    flex: 1;
     display: flex;
+    flex: 1;
+    min-width: 20rem;
+    padding: 0.5rem;
     position: relative;
-    margin: 0 1rem 1rem 0;
 
     :nth-child(3n) {
       margin-right: 0;
@@ -25,4 +25,4 @@ export const ArticleCardList = styled.ul`
       width: 33.33333%;
     }
   }
-`;
+`

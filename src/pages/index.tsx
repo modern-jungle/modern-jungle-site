@@ -12,20 +12,32 @@ import { toTitleCase } from "../utils/toTitleCase"
 
 const HomeTop = styled.div`
   display: flex;
-
-  height: 320px;
+  flex-wrap: wrap;
+  justify-content: center;
 
   > img {
-    width: calc(18rem + 2rem);
-    height: calc(18rem + 2rem);
-    display: none;
+    height: 20rem;
+    width: 20rem;
     margin-right: 1rem;
+    margin-bottom: 1rem;
   }
 
-  @media (min-width: 960px) {
-    img {
-      display: flex;
+  @media (min-width: 720px) {
+    > img {
+      margin-bottom: 0;
     }
+
+    > article {
+      flex-basis: auto;
+      min-width: 100%;
+    }
+  }
+
+  > article {
+    height: 20rem;
+    min-width: 30rem;
+    flex-grow: 1;
+    flex-basis: 30rem;
   }
 `
 
@@ -79,7 +91,7 @@ export default () => {
           <ArticleBlock article={first} />
         </HomeTop>
       </MainContent>
-      <MainContent>
+      <MainContent padding={false}>
         <ArticleCardList>
           {rest.slice(0, 3).map(article => (
             <li key={article.id}>
@@ -99,7 +111,7 @@ export default () => {
         </ArticleList>
       </MainContent>
       {featuredCategory && (
-        <MainContent>
+        <MainContent padding={false}>
           <h3 style={{ textAlign: "center" }}>
             Featured Category: {toTitleCase(featuredCategory.category.name)}
           </h3>
