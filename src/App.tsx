@@ -1,24 +1,24 @@
-import { Link, Match, RouteComponentProps, Router } from "@reach/router";
-import React from "react";
-import { Root, Routes } from "react-static";
-import styled from "@emotion/styled";
-import "./app.css";
-import InBrowserOnly from "./components/common/InBrowserOnly";
-import { MainContent } from "./components/common/MainContent";
-import ManageScroll from "./components/common/ManageScroll";
+import { Link, Match, RouteComponentProps, Router } from "@reach/router"
+import React from "react"
+import { Root, Routes } from "react-static"
+import styled from "@emotion/styled"
+import "./app.css"
+import InBrowserOnly from "./components/common/InBrowserOnly"
+import { MainContent } from "./components/common/MainContent"
+import ManageScroll from "./components/common/ManageScroll"
 
 const NavLink = (props: any) => (
   <Link
     {...props}
     getProps={({ isPartiallyCurrent }) => ({
-      className: isPartiallyCurrent ? "active" : ""
+      className: isPartiallyCurrent ? "active" : "",
     })}
   />
-);
+)
 
 const Header = styled.header`
   margin-bottom: 3rem;
-`;
+`
 
 const MJ = styled.img`
   width: 3.5rem;
@@ -27,10 +27,9 @@ const MJ = styled.img`
   max-width: initial;
   position: relative;
   z-index: 100;
-`;
+`
 
 const NavContainer = styled.div`
-  font-size: 0.9rem;
   display: flex;
   flex-direction: row;
 
@@ -64,7 +63,7 @@ const NavContainer = styled.div`
   nav a.active:after {
     background-color: #222;
   }
-`;
+`
 
 const NavLeft = styled.nav`
   display: flex;
@@ -77,14 +76,16 @@ const NavLeft = styled.nav`
   a:first-child:after {
     display: none !important;
   }
-`;
+`
 
 const NavRight = styled.nav`
   display: flex;
   justify-content: flex-end;
   position: relative;
   left: 0.5rem;
-`;
+`
+
+const Footer = styled.footer``
 
 function App() {
   return (
@@ -122,8 +123,22 @@ function App() {
           </Router>
         </React.Suspense>
       </main>
+      <MainContent>
+        <Footer>
+          <NavContainer>
+            <NavLeft>
+              <NavLink to={`/fiction`}>Fiction</NavLink>
+              <NavLink to={`/features`}>Features</NavLink>
+              <NavLink to={`/opinion`}>Opinion</NavLink>
+              <NavLink to={`/culture`}>Culture</NavLink>
+              <NavLink to={`/life`}>Life</NavLink>
+              <NavLink to={`/humor`}>Humor</NavLink>
+            </NavLeft>
+          </NavContainer>
+        </Footer>
+      </MainContent>
     </Root>
-  );
+  )
 }
 
-export default App;
+export default App

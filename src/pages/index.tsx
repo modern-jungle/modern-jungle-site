@@ -1,21 +1,21 @@
-import React from "react";
-import { useRouteData } from "react-static";
-import styled from "@emotion/styled";
-import { Article, Category } from "types";
-import { ArticleBlock } from "../components/common/ArticleBlock";
-import { ArticleCard } from "../components/common/ArticleCard";
-import { ArticleCardList } from "../components/common/ArticleCardList";
-import { ArticleList } from "../components/common/ArticleList";
-import { ArticleListItem } from "../components/common/ArticleListItem";
-import { MainContent } from "../components/common/MainContent";
-import { toTitleCase } from "../utils/toTitleCase";
+import React from "react"
+import { useRouteData } from "react-static"
+import styled from "@emotion/styled"
+import { Article, Category } from "types"
+import { ArticleBlock } from "../components/common/ArticleBlock/ArticleBlock"
+import { ArticleCard } from "../components/common/ArticleCard"
+import { ArticleCardList } from "../components/common/ArticleCardList"
+import { ArticleList } from "../components/common/ArticleList"
+import { ArticleListItem } from "../components/common/ArticleListItem"
+import { MainContent } from "../components/common/MainContent"
+import { toTitleCase } from "../utils/toTitleCase"
 
 const HomeTop = styled.div`
   display: flex;
 
   height: 320px;
 
-  img {
+  > img {
     width: calc(18rem + 2rem);
     height: calc(18rem + 2rem);
     display: none;
@@ -27,7 +27,7 @@ const HomeTop = styled.div`
       display: flex;
     }
   }
-`;
+`
 
 const More = styled.div`
   display: flex;
@@ -57,19 +57,19 @@ const More = styled.div`
     position: absolute;
     display: block;
   }
-`;
+`
 
 export default () => {
   const {
     articles,
     weeklyFeatures,
-    featuredCategory
+    featuredCategory,
   }: {
-    articles: Article[];
-    weeklyFeatures: Article[];
-    featuredCategory: { category: Category; articles: Article[] } | null;
-  } = useRouteData();
-  const [first, ...rest] = articles;
+    articles: Article[]
+    weeklyFeatures: Article[]
+    featuredCategory: { category: Category; articles: Article[] } | null
+  } = useRouteData()
+  const [first, ...rest] = articles
 
   return (
     <>
@@ -100,16 +100,9 @@ export default () => {
       </MainContent>
       {featuredCategory && (
         <MainContent>
-          <h2
-            style={{
-              textAlign: "center",
-              fontWeight: 500,
-              fontSize: "1.6rem",
-              margin: "2rem 0"
-            }}
-          >
+          <h3 style={{ textAlign: "center" }}>
             Featured Category: {toTitleCase(featuredCategory.category.name)}
-          </h2>
+          </h3>
           <ArticleCardList>
             {featuredCategory.articles.map(article => (
               <li key={article.id}>
@@ -130,5 +123,5 @@ export default () => {
         </ArticleList>
       </MainContent>
     </>
-  );
-};
+  )
+}

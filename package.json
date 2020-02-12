@@ -7,7 +7,9 @@
     "build": "react-static build",
     "bundle": "react-static bundle",
     "export": "react-static export",
-    "serve": "serve dist -p 3000 -s"
+    "serve": "serve dist -p 3000 -s",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
@@ -29,6 +31,14 @@
     "react-static-plugin-typescript": "^7.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@storybook/addon-actions": "^5.3.12",
+    "@storybook/addon-docs": "^5.3.12",
+    "@storybook/addon-info": "^5.3.12",
+    "@storybook/addon-links": "^5.3.12",
+    "@storybook/addons": "^5.3.12",
+    "@storybook/preset-typescript": "^1.2.0",
+    "@storybook/react": "^5.3.12",
     "@types/node": "^12.7.2",
     "@types/reach__router": "^1.2",
     "@types/react": "^16.9.1",
@@ -36,8 +46,16 @@
     "@types/react-helmet": "^5.0.15",
     "@types/react-hot-loader": "^4.1.0",
     "@types/webpack-env": "^1.14.0",
+    "add": "^2.0.6",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "fork-ts-checker-webpack-plugin": "^4.0.3",
+    "react-docgen-typescript-loader": "^3.6.0",
     "react-hot-loader": "^4.12.11",
+    "react-is": "^16.12.0",
     "serve": "^11.1.0",
-    "typescript": "^3.5.3"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.5.3",
+    "yarn": "^1.22.0"
   }
 }

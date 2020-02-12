@@ -1,35 +1,31 @@
-import { Link } from "@reach/router";
-import moment from "moment";
-import React from "react";
-import styled from "@emotion/styled";
-import { Article } from "types";
-import { getArticlePath } from "../../utils/getArticlePath";
-import { getAssetPath } from "../../utils/getAssetPath";
-import { toTitleCase } from "../../utils/toTitleCase";
-import { CornerCategoryTag } from "./CategoryTag";
+import styled from "@emotion/styled"
+import { Link } from "@reach/router"
+import moment from "moment"
+import React from "react"
+import { Article } from "types"
+import { getArticlePath } from "../../utils/getArticlePath"
+import { getAssetPath } from "../../utils/getAssetPath"
+import { toTitleCase } from "../../utils/toTitleCase"
+import { ArticleDate } from "./ArticleDate"
+import { AuthorLink } from "./AuthorLink"
+import { CornerCategoryTag } from "./CategoryTag"
 
-type ArticleCardImageProps = {
-  image: string;
-};
-
-const ArticleCardImage = styled.div<ArticleCardImageProps>`
+const ArticleCardImage = styled.div`
   width: 100%;
-  height: 270px;
+  height: 320px;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
 
-  :before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-image: url(${props => props.image});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    transition: transform 150ms ease-out;
+  img {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    max-width: initial;
+    max-height: 100%;
+    transform: translateX(-50%);
   }
-`;
+`
 
 export const ArticleCardWrapper = styled.article`
   display: flex;
@@ -38,56 +34,58 @@ export const ArticleCardWrapper = styled.article`
   width: 100%;
   position: relative;
 
-  a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: inherit;
-  }
-
   h1 {
     font-size: 2.2rem;
   }
 
-  h2 {
+  p {
     font-size: 1rem;
+    line-height: 1.1em;
     font-weight: 300;
   }
 
   :hover div:before {
     transform: scale(1.05);
   }
-`;
+`
+
+const ArticleCardTop = styled(Link)`
+  display: block;
+  width: 100%;
+  height: 100%;
+`
 
 export type ArticleCardProps = {
-  article: Article;
-};
+  article: Article
+}
 
 export function ArticleCard(props: ArticleCardProps) {
-  const { article } = props;
+  const { article } = props
   const {
     author,
     title,
     hero,
     preview,
     published_at,
-    subjects: [primarySubject]
-  } = article;
+    subjects: [primarySubject],
+  } = article
 
   return (
     <ArticleCardWrapper>
-      <Link to={getArticlePath(article)}>
-        <ArticleCardImage image={getAssetPath(hero.url)} />
+      <ArticleCardTop to={getArticlePath(article)}>
+        <ArticleCardImage>
+          <img src={getAssetPath(hero.url)} />
+        </ArticleCardImage>
         {primarySubject && (
           <CornerCategoryTag>
             {toTitleCase(primarySubject.name)}
           </CornerCategoryTag>
         )}
         <h1>{title}</h1>
-        <h2>{preview}</h2>
-        <address>{author.name}</address>
-        <time>{moment(published_at).format("DD MMM YY")}</time>
-      </Link>
+        <p>{preview}</p>
+      </ArticleCardTop>
+      <AuthorLink author={author} />
+      <ArticleDate>{moment(published_at).format("DD MMM YY")}</ArticleDate>
     </ArticleCardWrapper>
-  );
+  )
 }

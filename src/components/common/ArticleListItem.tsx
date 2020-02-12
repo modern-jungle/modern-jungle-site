@@ -1,39 +1,45 @@
-import { Link } from "@reach/router";
-import moment from "moment";
-import React from "react";
-import styled from "@emotion/styled";
-import { Article } from "types";
-import { getArticlePath } from "../../utils/getArticlePath";
-import { getAssetPath } from "../../utils/getAssetPath";
+import styled from "@emotion/styled"
+import { Link } from "@reach/router"
+import moment from "moment"
+import React from "react"
+import { Article } from "types"
+import { getArticlePath } from "../../utils/getArticlePath"
+import { getAssetPath } from "../../utils/getAssetPath"
+import { ArticleDate } from "./ArticleDate"
+import { AuthorLink } from "./AuthorLink"
 
 const ArticleListItemInfo = styled.div`
   flex: 1;
-`;
 
-type ArticleListItemImageProps = { image: string };
+  a:first-of-type {
+    flex: 1;
+    flex-direction: column;
+  }
+`
 
-const ArticleListItemImage = styled.div<ArticleListItemImageProps>`
+const ArticleListItemThumbnail = styled(Link)`
   height: 100%;
-  width: 16rem;
-  background-image: url(${props => props.image});
-  background-size: cover;
-  background-repeat: no-repeat;
-`;
+  width: 10rem;
+  justify-content: flex-end;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    max-width: initial;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+`
 
 const ArticleListItemWrapper = styled.li`
   display: flex;
-  height: 14rem;
+  height: 12rem;
   overflow: hidden;
 
-  a {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-
   article {
+    display: flex;
+    flex: 1;
     height: 100%;
-    width: 100%;
   }
 
   h1 {
@@ -55,27 +61,31 @@ const ArticleListItemWrapper = styled.li`
   :last-of-type {
     padding-bottom: 0;
   }
-`;
+`
 
-export type ArticleListItemProps = { article: Article };
+export type ArticleListItemProps = { article: Article }
 
 export function ArticleListItem(props: ArticleListItemProps) {
-  const { article } = props;
-  const { author, title, hero, preview, published_at } = article;
+  const { article } = props
+  const { author, title, hero, preview, published_at } = article
 
   return (
     <ArticleListItemWrapper>
       <article>
-        <Link to={getArticlePath(article)}>
-          <ArticleListItemInfo>
-            <time>{moment(published_at).format("DD MMM YY")}</time>
+        <ArticleListItemInfo>
+          <Link to={getArticlePath(article)}>
+            <ArticleDate>
+              {moment(published_at).format("DD MMM YY")}
+            </ArticleDate>
             <h1>{title}</h1>
             <h2>{preview}</h2>
-            <address>{author.name}</address>
-          </ArticleListItemInfo>
-          <ArticleListItemImage image={getAssetPath(hero.url)} />
-        </Link>
+          </Link>
+          <AuthorLink author={author} />
+        </ArticleListItemInfo>
+        <ArticleListItemThumbnail to={getArticlePath(article)}>
+          <img src={getAssetPath(hero.url)} />
+        </ArticleListItemThumbnail>
       </article>
     </ArticleListItemWrapper>
-  );
+  )
 }

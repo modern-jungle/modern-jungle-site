@@ -1,56 +1,71 @@
-import React from "react";
-import axios from "axios";
-import path from "path";
+import React from "react"
+import axios from "axios"
+import path from "path"
 
-require("dotenv").config();
+require("dotenv").config()
 
 const siteRoot =
   process.env.SITE_ROOT ||
   (process.env.NODE_ENV === "production"
     ? "https://modernjungle.press"
-    : "http://localhost:3000");
+    : "http://localhost:3000")
 
 function getHomeData(page, articles, categories) {
-  const [config] = page.config;
-  const articlesByCategory = getArticlesByCategory(articles, categories);
+  const [config] = page.config
+  const articlesByCategory = getArticlesByCategory(articles, categories)
   const featuredCategory = config.featured_category
     ? {
         category: config.featured_category,
-        articles: articlesByCategory[config.featured_category.id].slice(0, 6)
+        articles: articlesByCategory[config.featured_category.id].slice(0, 6),
       }
-    : null;
-  const weeklyFeatures = articles.filter(article => article.weekly_feature);
+    : null
+  const weeklyFeatures = articles.filter(article => article.weekly_feature)
   const mainArticles = (featuredCategory
     ? articles.filter(
-        article => !featuredCategory.articles.find(a => a.id === article.id)
+        article => !featuredCategory.articles.find(a => a.id === article.id),
       )
     : articles
-  ).filter(article => !article.weekly_feature);
+  ).filter(article => !article.weekly_feature)
 
   return {
     articles: mainArticles,
     weeklyFeatures,
-    featuredCategory
-  };
+    featuredCategory,
+  }
 }
 
 function getArticlesByCategory(articles, categories) {
   const articlesByCategory = categories.reduce((acc, category) => {
-    acc[category.id] = [];
-    return acc;
-  }, {});
+    acc[category.id] = []
+    return acc
+  }, {})
 
   for (let i = 0; i < articles.length; i++) {
-    const article = articles[i];
+    const article = articles[i]
 
-    articlesByCategory[article.category.id].push(article);
+    articlesByCategory[article.category.id].push(article)
   }
 
-  return articlesByCategory;
+  return articlesByCategory
+}
+
+function getArticlesByAuthor(articles, authors) {
+  const articlesByAuthor = authors.reduce((acc, author) => {
+    acc[author.id] = []
+    return acc
+  }, {})
+
+  for (let i = 0; i < articles.length; i++) {
+    const article = articles[i]
+
+    articlesByAuthor[article.author.id].push(article)
+  }
+
+  return articlesByAuthor
 }
 
 const sortByDate = (articleA, articleB) =>
-  new Date(articleB.published_at) - new Date(articleA.published_at);
+  new Date(articleB.published_at) - new Date(articleA.published_at)
 
 export default {
   entry: path.join(__dirname, "src", "index.tsx"),
@@ -58,15 +73,17 @@ export default {
   getSiteData: async () => ({ siteRoot }),
   getRoutes: async () => {
     const { data: articles } = await axios.get(
-      `${process.env.API_URL}/articles`
-    );
+      `${process.env.API_URL}/articles`,
+    )
     const { data: categories } = await axios.get(
-      `${process.env.API_URL}/categories`
-    );
-    const { data: pages } = await axios.get(`${process.env.API_URL}/pages`);
-    const home = pages.find(page => page.name === "home");
-    const sortedArticles = articles.sort(sortByDate);
-    const articlesByCategory = getArticlesByCategory(articles, categories);
+      `${process.env.API_URL}/categories`,
+    )
+    const { data: authors } = await axios.get(`${process.env.API_URL}/authors`)
+    const { data: pages } = await axios.get(`${process.env.API_URL}/pages`)
+    const home = pages.find(page => page.name === "home")
+    const sortedArticles = articles.sort(sortByDate)
+    const articlesByAuthor = getArticlesByAuthor(articles, authors)
+    const articlesByCategory = getArticlesByCategory(articles, categories)
 
     return [
       {
@@ -74,7 +91,7 @@ export default {
         getData: () => ({
           categories,
           articlesByCategory,
-          ...getHomeData(home, sortedArticles, categories)
+          ...getHomeData(home, sortedArticles, categories),
         }),
         children: categories
           .map(category => ({
@@ -82,39 +99,49 @@ export default {
             template: "src/containers/Category",
             getData: () => ({
               category,
-              articles: articlesByCategory[category.id]
-            })
+              articles: articlesByCategory[category.id],
+            }),
           }))
           .concat(
             sortedArticles.map(article => ({
               path: `/${article.category.name}/${article.slug}`,
               template: "src/containers/Article",
               getData: () => ({
-                article
-              })
-            }))
+                article,
+              }),
+            })),
           )
-      }
-    ];
+          .concat(
+            authors.map(author => ({
+              path: `/author/${author.name}`,
+              template: "src/containers/Author",
+              getData: () => ({
+                author,
+                articles: articlesByAuthor[author.id],
+              }),
+            })),
+          ),
+      },
+    ]
   },
   plugins: [
     "react-static-plugin-typescript",
     [
       "react-static-plugin-source-filesystem",
       {
-        location: path.resolve("./src/pages")
-      }
+        location: path.resolve("./src/pages"),
+      },
     ],
     "react-static-plugin-reach-router",
     "react-static-plugin-sitemap",
-    "react-static-plugin-emotion"
+    "react-static-plugin-emotion",
   ],
   Document: ({
     Html,
     Head,
     Body,
     children,
-    state: { siteData, renderMeta }
+    state: { siteData, renderMeta },
   }) => (
     <Html lang="en-US">
       <Head>
@@ -130,10 +157,6 @@ export default {
           content="width=device-width, user-scalable=no, maximum-scale=1, initial-scale=1"
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Space+Mono:400,700&amp;display=swap"
-          rel="stylesheet"
-        />
         <link
           href="https://fonts.googleapis.com/css?family=Heebo:300,400,500,700,800,900&display=swap"
           rel="stylesheet"
@@ -214,5 +237,5 @@ export default {
       </Head>
       <Body>{children}</Body>
     </Html>
-  )
-};
+  ),
+}

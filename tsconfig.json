@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,

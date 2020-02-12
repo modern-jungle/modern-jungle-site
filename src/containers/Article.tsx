@@ -1,55 +1,69 @@
-import moment from "moment";
-import React from "react";
-import Helmet from "react-helmet";
-import { useRouteData, useSiteData } from "react-static";
-import styled from "@emotion/styled";
-import { Article } from "../../types";
-import { CategoryTag } from "../components/common/CategoryTag";
-import ArticleImage from "../components/writing/ArticleImage";
-import ArticleQuote from "../components/writing/ArticleQuote";
-import ArticleSection from "../components/writing/ArticleSection";
-import { getAssetPath } from "../utils/getAssetPath";
-import { toTitleCase } from "../utils/toTitleCase";
-import { getArticlePath } from "../utils/getArticlePath";
-import { buildUrl } from "../utils/buildUrl";
+import styled from "@emotion/styled"
+import moment from "moment"
+import React from "react"
+import Helmet from "react-helmet"
+import { useRouteData, useSiteData } from "react-static"
+import { ArticleDate } from "../components/common/ArticleDate"
+import { Article } from "../../types"
+import { AuthorCard } from "../components/common/AuthorCard"
+import { AuthorLink } from "../components/common/AuthorLink"
+import { CategoryTag } from "../components/common/CategoryTag"
+import ArticleImage from "../components/writing/ArticleImage"
+import ArticleQuote from "../components/writing/ArticleQuote"
+import ArticleSection from "../components/writing/ArticleSection"
+import { buildUrl } from "../utils/buildUrl"
+import { getArticlePath } from "../utils/getArticlePath"
+import { getAssetPath } from "../utils/getAssetPath"
+import { toTitleCase } from "../utils/toTitleCase"
 
 const ArticleWrapper = styled.article`
   max-width: 900px;
   margin: 0 auto;
+  font-size: 1.2rem;
+`
 
-  font-size: 1.3rem;
-`;
-
-const AricleHero = styled.section<{ image: string }>`
+const AricleHero = styled.section`
   width: 100%;
-  height: 400px;
-  background-image: url(${props => props.image});
-  background-size: cover;
-  background-position: center;
-`;
 
-const ArticleTop = styled.div`
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+`
+
+const ArticleHeader = styled.header`
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 
   h1 {
     margin-bottom: 0;
-    font-size: 5rem;
   }
+`
 
-  address {
-    font-size: 1.5rem;
-  }
+const ArticleFooter = styled.footer`
+  margin-top: 3rem;
 
-  time {
-    font-size: 1rem;
+  :before {
+    content: "";
+    width: 100%;
+    max-width: 10rem;
+    height: 1rem;
+    background-color: black;
+    display: block;
+    margin: 3rem auto;
   }
-`;
+`
+
+const ArticleCategoryTag = styled(CategoryTag)`
+  align-self: center;
+`
 
 export default () => {
-  const { siteRoot }: { siteRoot: string } = useSiteData();
-  const { article }: { article: Article } = useRouteData();
-  const image = getAssetPath(article.hero.url);
+  const { siteRoot }: { siteRoot: string } = useSiteData()
+  const { article }: { article: Article } = useRouteData()
+  const image = getAssetPath(article.hero.url)
   const components = article.content.map(component => {
     if ("text" in component) {
       return (
@@ -57,24 +71,24 @@ export default () => {
           section={component}
           key={`${component.__component}${component.id}`}
         />
-      );
+      )
     } else if ("image" in component) {
       return (
         <ArticleImage
           image={component}
           key={`${component.__component}${component.id}`}
         />
-      );
+      )
     } else if ("quote" in component) {
-      return <ArticleQuote quote={component} />;
+      return <ArticleQuote quote={component} />
     }
 
-    return null;
-  });
+    return null
+  })
 
-  const url = buildUrl(siteRoot, getArticlePath(article));
-  const publishedTime = moment(article.published_at).format();
-  const modifiedTime = moment(article.updated_at).format();
+  const url = buildUrl(siteRoot, getArticlePath(article))
+  const publishedTime = moment(article.published_at).format()
+  const modifiedTime = moment(article.updated_at).format()
 
   return (
     <>
@@ -103,23 +117,30 @@ export default () => {
         <meta name="twitter:description" content={article.preview} />
       </Helmet>
       <ArticleWrapper>
-        <ArticleTop>
+        <ArticleHeader>
           {article.subjects.map((subject, i) => (
-            <CategoryTag
+            <ArticleCategoryTag
               key={subject.name}
               style={i > 0 ? { marginLeft: "0.2rem" } : {}}
               inverted
             >
               {toTitleCase(subject.name)}
-            </CategoryTag>
+            </ArticleCategoryTag>
           ))}
           <h1>{article.title}</h1>
-          <address>{article.author.name}</address>
-          <time>{moment(article.published_at).format("DD MMM YY")}</time>
-        </ArticleTop>
-        <AricleHero image={image} />
+          <AuthorLink author={article.author} />
+          <ArticleDate>
+            {moment(article.published_at).format("DD MMM YY")}
+          </ArticleDate>
+        </ArticleHeader>
+        <AricleHero>
+          <img src={getAssetPath(article.hero.url)} />
+        </AricleHero>
         {components}
+        <ArticleFooter>
+          <AuthorCard author={article.author} />
+        </ArticleFooter>
       </ArticleWrapper>
     </>
-  );
-};
+  )
+}
