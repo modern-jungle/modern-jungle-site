@@ -18,7 +18,6 @@ const ArticleCardThumbnail = styled(ImageContainer)`
 export const ArticleCardWrapper = styled.article`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   width: 100%;
   position: relative;
 
@@ -40,7 +39,6 @@ export const ArticleCardWrapper = styled.article`
 const ArticleCardTop = styled(Link)`
   display: block;
   width: 100%;
-  height: 100%;
 `
 
 export type ArticleCardProps = {
