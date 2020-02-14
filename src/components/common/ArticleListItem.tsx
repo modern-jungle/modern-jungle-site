@@ -13,6 +13,7 @@ const ArticleListItemInfo = styled.div`
   flex: 1;
 
   a:first-of-type {
+    display: flex;
     flex: 1;
     flex-direction: column;
   }

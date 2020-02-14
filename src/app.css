@@ -29,6 +29,16 @@ html {
   -webkit-font-smoothing: auto;
 }
 
+body {
+  padding-top: 4.5rem;
+}
+
+@media (min-width: 720px) {
+  body {
+    padding-top: 0;
+  }
+}
+
 a {
   text-decoration: none;
   color: inherit;

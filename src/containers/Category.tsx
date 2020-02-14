@@ -12,8 +12,8 @@ export default () => {
     <MainContent padding={false}>
       <ArticleCardList>
         {articles.map(article => (
-          <li>
-            <ArticleCard key={article.id} article={article} />
+          <li key={article.id}>
+            <ArticleCard article={article} />
           </li>
         ))}
       </ArticleCardList>

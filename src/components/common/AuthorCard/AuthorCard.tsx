@@ -9,16 +9,19 @@ type AuthorCardWrapperProps = {}
 
 const AuthorCardWrapper = styled.div<AuthorCardWrapperProps>`
   display: flex;
-  height: 8rem;
-
-  transition: transform 100ms linear;
+  height: 10rem;
+  transition: all 100ms linear;
 
   :hover {
     transform: scale(1.02);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+      0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+      0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   }
 
-  a {
+  > a {
     display: flex;
+    padding: 1rem;
   }
 
   img {

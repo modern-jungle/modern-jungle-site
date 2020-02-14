@@ -31,8 +31,14 @@ export const ArticleCardWrapper = styled.article`
     font-weight: 300;
   }
 
-  :hover div:before {
-    transform: scale(1.05);
+  img {
+    transition: transform 100ms linear;
+  }
+
+  :hover {
+    img {
+      transform: scale(1.02);
+    }
   }
 `
 

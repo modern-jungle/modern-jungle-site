@@ -1,37 +1,44 @@
-import { Link, Match, RouteComponentProps, Router } from "@reach/router"
+import styled from "@emotion/styled"
+import { Match, RouteComponentProps, Router, Link } from "@reach/router"
 import React from "react"
 import { Root, Routes } from "react-static"
-import styled from "@emotion/styled"
 import "./app.css"
 import InBrowserOnly from "./components/common/InBrowserOnly"
 import { MainContent } from "./components/common/MainContent"
 import ManageScroll from "./components/common/ManageScroll"
-
-const NavLink = (props: any) => (
-  <Link
-    {...props}
-    getProps={({ isPartiallyCurrent }) => ({
-      className: isPartiallyCurrent ? "active" : "",
-    })}
-  />
-)
+import { NavLink } from "./components/common/NavLink"
+import { OffCanvasMenu } from "./components/common/OffCanvasMenu/OffCanvasMenu"
+import { ImageContainer } from "./components/common/ImageContainer"
 
 const Header = styled.header`
   margin-bottom: 3rem;
+  position: fixed;
+  z-index: 998;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+
+  @media (min-width: 720px) {
+    position: static;
+  }
 `
 
 const MJ = styled.img`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   margin-right: 1rem;
   max-width: initial;
   position: relative;
   z-index: 100;
+  display: block;
 `
 
 const NavContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex: 1;
 
   nav {
     width: 100%;
@@ -66,37 +73,60 @@ const NavContainer = styled.div`
 `
 
 const NavLeft = styled.nav`
-  display: flex;
+  display: none;
   position: relative;
+  flex: 1;
 
-  a:first-child {
-    padding: 0;
-  }
-
-  a:first-child:after {
-    display: none !important;
+  @media (min-width: 720px) {
+    display: flex;
   }
 `
 
 const NavRight = styled.nav`
-  display: flex;
+  display: none;
   justify-content: flex-end;
   position: relative;
   left: 0.5rem;
+  flex: 1;
+
+  @media (min-width: 720px) {
+    display: flex;
+  }
 `
 
-const Footer = styled.footer``
+const NavStacked = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`
+
+const Footer = styled.footer`
+  display: flex;
+  justify-content: center;
+`
+
+const FooterCat = styled(Link)`
+  transition: all 100ms linear;
+  width: 100px;
+
+  :hover {
+    transform: scale(1.02);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+      0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+      0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+  }
+`
 
 function App() {
   return (
     <Root>
       <MainContent margin={false}>
         <Header>
+          <NavLink to="/">
+            <MJ src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
+          </NavLink>
           <NavContainer>
             <NavLeft>
-              <NavLink to="/">
-                <MJ src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
-              </NavLink>
               <NavLink to={`/fiction`}>Fiction</NavLink>
               <NavLink to={`/features`}>Features</NavLink>
               <NavLink to={`/opinion`}>Opinion</NavLink>
@@ -108,6 +138,19 @@ function App() {
               <NavLink to="/about">About</NavLink>
               <NavLink to="/contests">Contests</NavLink>
             </NavRight>
+            <OffCanvasMenu id="mobile-navigation">
+              <h2>Modern Jungle</h2>
+              <NavContainer>
+                <NavStacked>
+                  <NavLink to={`/fiction`}>Fiction</NavLink>
+                  <NavLink to={`/features`}>Features</NavLink>
+                  <NavLink to={`/opinion`}>Opinion</NavLink>
+                  <NavLink to={`/culture`}>Culture</NavLink>
+                  <NavLink to={`/life`}>Life</NavLink>
+                  <NavLink to={`/humor`}>Humor</NavLink>
+                </NavStacked>
+              </NavContainer>
+            </OffCanvasMenu>
           </NavContainer>
         </Header>
       </MainContent>
@@ -125,16 +168,11 @@ function App() {
       </main>
       <MainContent>
         <Footer>
-          <NavContainer>
-            <NavLeft>
-              <NavLink to={`/fiction`}>Fiction</NavLink>
-              <NavLink to={`/features`}>Features</NavLink>
-              <NavLink to={`/opinion`}>Opinion</NavLink>
-              <NavLink to={`/culture`}>Culture</NavLink>
-              <NavLink to={`/life`}>Life</NavLink>
-              <NavLink to={`/humor`}>Humor</NavLink>
-            </NavLeft>
-          </NavContainer>
+          <FooterCat to="/">
+            <ImageContainer>
+              <img src="cat.jpg" />
+            </ImageContainer>
+          </FooterCat>
         </Footer>
       </MainContent>
     </Root>

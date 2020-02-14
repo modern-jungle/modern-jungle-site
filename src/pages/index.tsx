@@ -19,12 +19,12 @@ const HomeTop = styled.div`
     height: 20rem;
     width: 20rem;
     margin-right: 1rem;
-    margin-bottom: 1rem;
+    display: none;
   }
 
   @media (min-width: 720px) {
     > img {
-      margin-bottom: 0;
+      display: block;
     }
 
     > article {

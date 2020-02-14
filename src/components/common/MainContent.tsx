@@ -15,7 +15,7 @@ export const MainContent = styled.section<MainContentProps>`
     ${props =>
       typeof props.padding !== "boolean" || props.padding ? "0.5rem" : "0"};
 
-  :first-child {
+  :first-of-type {
     margin-top: 0;
   }
 `

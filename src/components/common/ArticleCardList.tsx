@@ -17,10 +17,6 @@ export const ArticleCardList = styled.ul`
     padding: 0.5rem;
     position: relative;
 
-    :nth-child(3n) {
-      margin-right: 0;
-    }
-
     @media (min-width: 832px) {
       width: 33.33333%;
     }
