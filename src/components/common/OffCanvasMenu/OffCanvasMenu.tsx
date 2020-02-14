@@ -98,23 +98,19 @@ const OffCanvasMenuButton = styled.label`
 
 export function OffCanvasMenu(props: OffCanvasMenuProps) {
   const [open, setOpen] = useState(false)
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setOpen(true)
-      document.body.style.height = "100vh"
-      document.body.style.overflowY = "hidden"
-    } else {
-      setOpen(false)
-      document.body.style.height = ""
-      document.body.style.overflowY = ""
-    }
+  const onChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setOpen(e.target.checked),
+    [],
+  )
+
+  useEffect(() => {
+    return globalHistory.listen(() => setOpen(false))
   }, [])
 
   useEffect(() => {
-    return globalHistory.listen(() => {
-      setOpen(false)
-    })
-  }, [])
+    document.body.style.height = open ? "100vh" : ""
+    document.body.style.overflowY = open ? "hidden" : ""
+  }, [open])
 
   return (
     <Wrapper>
