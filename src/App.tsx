@@ -25,7 +25,7 @@ const Header = styled.header`
   }
 `
 
-const MJ = styled.img`
+const HeaderCat = styled.img`
   width: 4rem;
   height: 4rem;
   margin-right: 1rem;
@@ -33,6 +33,15 @@ const MJ = styled.img`
   position: relative;
   z-index: 100;
   display: block;
+
+  transition: all 100ms linear;
+
+  :hover {
+    transform: scale(1.02);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+      0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+      0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+  }
 `
 
 const NavContainer = styled.div`
@@ -123,7 +132,7 @@ function App() {
       <MainContent margin={false}>
         <Header>
           <NavLink to="/">
-            <MJ src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
+            <HeaderCat src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
           </NavLink>
           <NavContainer>
             <NavLeft>
@@ -139,9 +148,12 @@ function App() {
               <NavLink to="/contests">Contests</NavLink>
             </NavRight>
             <OffCanvasMenu id="mobile-navigation">
-              <h2>Modern Jungle</h2>
+              <Link to="/">
+                <h2>Modern Jungle</h2>
+              </Link>
               <NavContainer>
                 <NavStacked>
+                  <NavLink to="/">Home</NavLink>
                   <NavLink to={`/fiction`}>Fiction</NavLink>
                   <NavLink to={`/features`}>Features</NavLink>
                   <NavLink to={`/opinion`}>Opinion</NavLink>
