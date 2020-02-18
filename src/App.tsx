@@ -55,25 +55,26 @@ const NavContainer = styled.div`
 
   nav a {
     padding: 0 0.75rem;
-    height: 3.5rem;
+    height: 4rem;
     line-height: 4rem;
   }
 
   nav a:after {
     content: "";
-    display: none;
     height: 2px;
     background-color: #aaa;
     position: relative;
-    bottom: 0.6rem;
+    bottom: 2px;
     right: 0.5rem;
     z-index: 99;
     width: calc(100% + 1rem);
+    display: block;
+    visibility: hidden;
   }
 
   nav a.active:after,
   nav a:hover:after {
-    display: block;
+    visibility: visible;
   }
 
   nav a.active:after {
@@ -132,7 +133,10 @@ function App() {
       <MainContent margin={false}>
         <Header>
           <NavLink to="/">
-            <HeaderCat src="/modern_jungle_cat.jpg" alt="Modern Jungle" />
+            <HeaderCat
+              src="/modern_jungle_cat.jpg"
+              alt="Modern Jungle cat logo"
+            />
           </NavLink>
           <NavContainer>
             <NavLeft>
@@ -182,7 +186,7 @@ function App() {
         <Footer>
           <FooterCat to="/">
             <ImageContainer>
-              <img src="cat.jpg" />
+              <img src="/cat.jpg" alt="Cat logo" />
             </ImageContainer>
           </FooterCat>
         </Footer>
